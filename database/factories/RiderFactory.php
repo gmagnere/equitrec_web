@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Championship;
 use App\Models\Rider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,10 @@ class RiderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'surname' => $this->faker->lastName,
+            'bib_number' => $this->faker->numberBetween(),
+            'id_championship' =>Championship::all()->random()->id,
         ];
     }
 }

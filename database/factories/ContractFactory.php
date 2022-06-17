@@ -18,7 +18,8 @@ class ContractFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'mark' => $this->faker->numberBetween(0, 7),
+            'mistake' => $this->faker->numberBetween(0, 3)
         ];
     }
 }

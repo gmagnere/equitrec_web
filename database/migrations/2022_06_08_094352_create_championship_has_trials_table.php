@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('championship_has_trials', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_obstacle');
+            $table->integer('id_trial');
             $table->integer('id_championship');
             $table->timestamps();
         });

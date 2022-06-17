@@ -18,7 +18,7 @@ class ChampionshipFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->realText,
+            'name' => $this->faker->realText(25),
             'place' => $this->faker->city,
             'dateStart' => $this->faker->dateTime('now'),
             'dateEnd' => $this->faker->dateTime('-10 days')

@@ -18,7 +18,8 @@ class StyleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'mark' => $this->faker->numberBetween(0,3),
+            'libelleAppreciation' => $this->faker->realText(15),
         ];
     }
 }

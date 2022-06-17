@@ -18,7 +18,7 @@ class GradeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'libelleGrade' => $this->faker->realText(10),
         ];
     }
 }

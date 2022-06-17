@@ -18,7 +18,7 @@ class RoleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'libelleRole' => $this->faker->realText(10)
         ];
     }
 }

@@ -18,7 +18,8 @@ class PaceFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'mark' => $this->faker->numberBetween(-2, 3),
+            'libellePace' => $this->faker->realText(15),
         ];
     }
 }

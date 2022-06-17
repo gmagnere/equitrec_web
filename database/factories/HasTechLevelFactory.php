@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\HasTechLevel;
+use App\Models\Obstacle;
+use App\Models\TechLevels;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,8 @@ class HasTechLevelFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'id_tech_level' => TechLevels::all()->random()->id,
+            'id_obstacle' => Obstacle::all()->random()->id,
         ];
     }
 }

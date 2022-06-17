@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Championship;
 use App\Models\ChampionshipHasTrials;
 use App\Models\Trial;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,8 +20,8 @@ class ChampionshipHasTrialsFactory extends Factory
     public function definition()
     {
         return [
-            'id_obstacle' => Trial::all()->random()->id,
-            'id_championship' => Trial::all()->random()->id
+            'id_trial' => Trial::all()->random()->id,
+            'id_championship' => Championship::all()->random()->id
         ];
     }
 }

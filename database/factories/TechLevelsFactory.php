@@ -18,7 +18,7 @@ class TechLevelsFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'libelleTechLevel' =>$this->faker->realText(20)
         ];
     }
 }

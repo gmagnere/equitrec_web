@@ -18,7 +18,8 @@ class PenalitiesFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'libellePenalty' => $this->faker->realText(25),
+            'penalty' => $this->faker->numberBetween(-10, -10),
         ];
     }
 }

@@ -18,7 +18,7 @@ class TrialFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'libelleTrial' =>$this->faker->realText(15),
         ];
     }
 }

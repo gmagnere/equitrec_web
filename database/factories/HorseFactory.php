@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Horse;
+use App\Models\Rider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,8 @@ class HorseFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->lastName,
+            'id_rider' => Rider::all()->random()->id,
         ];
     }
 }
