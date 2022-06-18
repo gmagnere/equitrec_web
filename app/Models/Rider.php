@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rider extends Model
 {
+
+    protected  $fillable = ['name', 'surname', 'bib_number', 'id_championship'];
     use HasFactory;
 }
