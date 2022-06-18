@@ -36,7 +36,6 @@
 import SelectSearch from "@/Shared/Inputs/Select/SelectSearch"
 import BadgeButton from "@/Shared/Components/BadgeButton";
 import ModalSimple from "@/Shared/Modal/ModalSimple";
-import CustomerForm from "@/Pages/Customers/CustomerForm";
 
 export default {
     name: "CustomerSelect",

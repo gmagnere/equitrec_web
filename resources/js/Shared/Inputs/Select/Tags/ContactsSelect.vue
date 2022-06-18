@@ -65,7 +65,6 @@ import SelectSearch from "@/Shared/Inputs/Select/SelectSearch"
 import Icon from "@/Shared/Components/Icon";
 import BadgeButton from "@/Shared/Components/BadgeButton";
 import ModalSimple from "@/Shared/Modal/ModalSimple";
-import ContactForm from "@/Pages/Contacts/ContactForm";
 import ContactsWithModals from "@/Shared/Components/ContactsWithModal"
 
 export default {
