@@ -41,6 +41,12 @@
                         Compétition auquelle le cavalier est inscrit
                     </label>
                 </div>
+                <select v-model="form.championship" id="championship" class=" mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 text-gray-700 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Selectionner une compétition</option>
+                    <option :value="championship" v-for="(championship, index) in championships" :key="championships.id">
+                        {{championship.name}}
+                    </option>
+                </select>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
                         focus:outline-none focus:shadow-outline" type="submit">
                     Valider
@@ -70,6 +76,9 @@
                                                 Numéro de dossard
                                             </th>
                                             <th scope="col" class="py-3 px-6 w-3/12 text-xs font-semibold tracking-wider text-left text-white uppercase">
+                                                Compétition en cours
+                                            </th>
+                                            <th scope="col" class="py-3 px-6 w-3/12 text-xs font-semibold tracking-wider text-left text-white uppercase">
                                                 Action
                                             </th>
                                         </tr>
@@ -95,7 +104,10 @@
                                                 {{ rider.bib_number }}
                                             </td>
                                             <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap">
-                                                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                                {{ rider.champion_ship_from_rider.name }}
+                                            </td>
+                                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap">
+                                                <button @click="deleteRider(rider)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                                     Supprimer
                                                 </button>
                                             </td>
@@ -114,7 +126,6 @@
 
 <script>
 import AppLayout from '@/Layouts/AppLayout';
-import Pagination from "@/Jetstream/Pagination";
 import { pickBy, throttle } from 'lodash';
 import Modal from "../../../../vendor/laravel/jetstream/stubs/inertia/resources/js/Jetstream/Modal";
 import Dropdown from "../../../../vendor/laravel/jetstream/stubs/inertia/resources/js/Jetstream/Dropdown";
@@ -124,12 +135,14 @@ export default {
         Dropdown,
         Modal,
         AppLayout,
-        Pagination,
     },
     props: {
         riders: Object,
         filters: Object,
-        championships: Array,
+        championships:{
+            type: Array,
+            default: () => []
+        },
     },
     data() {
         return {
@@ -144,6 +157,7 @@ export default {
                 surname: null,
                 bib_number: null,
                 championship: null,
+                rider: null,
             }),
         };
     },
@@ -162,10 +176,13 @@ export default {
             })
         },
 
-        onSelectedChampionship(championship){
-            this.form.championship = championship;
-            console.log(championship);
-        }
+        deleteRider(rider){
+            this.form.rider = rider;
+            this.form.post(this.route('rider.delete'), {
+                preserveScroll: true,
+                preserveState: false,
+            })
+        },
     },
     watch: {
         params: {

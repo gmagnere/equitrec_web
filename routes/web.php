@@ -29,5 +29,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/dashboard', function () {return Inertia::render('Dashboard');})->name('dashboard');
     Route::get('/rider', [RiderController::class, 'index'])->name('rider.index');
     Route::post('/rider/add', [RiderController::class, 'submit'])->name('rider.add');
+    Route::post('/rider/delete', [RiderController::class, 'delete'])->name('rider.delete');
 
 });

@@ -17,7 +17,7 @@ class RiderController extends Controller
             'field' => ['in:name, surname']
         ]);
 
-        $riders = Rider::query();
+        $riders = Rider::query()->with('championShipFromRider');
 
         $championships = Championship::get();
 
@@ -37,14 +37,26 @@ class RiderController extends Controller
     }
 
     public function Submit (Request $request) {
-        dd($request);
+        //dd($request);
 
         $rider = Rider::create([
             'name' => request('name'),
             'surname' => request('surname'),
-            'bib_number' => request('bib-number')
+            'bib_number' => request('bib_number'),
+            'id_championship' => request('championship')['id'],
         ]);
 
         $rider->save();
+
+        return redirect('/rider');
+    }
+
+    public function delete (Request $request) {
+        //dd(request('rider')['id']);
+
+        $rider = Rider::where('id', request('rider')['id'])
+            ->delete();
+
+        return redirect('/rider');
     }
 }
