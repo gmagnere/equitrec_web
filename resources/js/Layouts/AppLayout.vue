@@ -55,6 +55,9 @@ const logout = () => {
                                 <JetNavLink :href="route('rider.index')" :active="route().current('rider*')">
                                     Cavalier
                                 </JetNavLink>
+                                <JetNavLink :href="route('judge.index')" :active="route().current('judge*')">
+                                    Juge
+                                </JetNavLink>
                             </div>
                         </div>
 
@@ -147,6 +150,9 @@ const logout = () => {
                         </JetResponsiveNavLink>
                         <JetResponsiveNavLink :href="route('rider.index')" :active="route().current('rider*')">
                             Cavalier
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink :href="route('judge.index')" :active="route().current('judge*')">
+                            Juge
                         </JetResponsiveNavLink>
                     </div>
 

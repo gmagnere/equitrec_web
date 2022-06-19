@@ -12,26 +12,12 @@ class RiderController extends Controller
 {
     public function index(Request $request) {
 
-        request()->validate([
-            'direction' => ['in:asc,desc'],
-            'field' => ['in:name, surname']
-        ]);
-
         $riders = Rider::query()->with('championShipFromRider');
 
         $championships = Championship::get();
 
-        if (request('search')) {
-            $riders->where('name', 'LIKE', '%'.request('search').'%');
-        }
-
-        if (request()->has(['field', 'direction'])) {
-            $riders->orderBy(request('field'), request('direction'));
-        }
-
         return Inertia::render('Rider/Index', [
             'riders' => $riders->paginate()->withQueryString(),
-            'filters' => request()->all(['search', 'field', 'direction']),
             'championships' => $championships,
         ]);
     }
