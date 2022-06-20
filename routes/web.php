@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChampionShipController;
 use App\Http\Controllers\JudgeController;
 use App\Http\Controllers\RiderController;
 use Illuminate\Foundation\Application;
@@ -28,11 +29,17 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/dashboard', function () {return Inertia::render('Dashboard');})->name('dashboard');
+
     Route::get('/rider', [RiderController::class, 'index'])->name('rider.index');
     Route::post('/rider/add', [RiderController::class, 'submit'])->name('rider.add');
     Route::post('/rider/delete', [RiderController::class, 'delete'])->name('rider.delete');
+
     Route::get('/judge', [JudgeController::class, 'index'])->name('judge.index');
     Route::post('/judge/add', [JudgeController::class, 'submit'])->name('judge.add');
     Route::post('/judge/delete', [JudgeController::class, 'delete'])->name('judge.delete');
+
+    Route::get('/championship', [ChampionShipController::class, 'index'])->name('championship.index');
+    Route::post('/championship/add', [ChampionShipController::class, 'submit'])->name('championship.add');
+    Route::post('/championship/delete', [ChampionShipController::class, 'delete'])->name('championship.delete');
 
 });
