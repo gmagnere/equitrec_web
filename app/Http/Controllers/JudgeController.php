@@ -28,7 +28,7 @@ class JudgeController extends Controller
             'name' => request('name'),
             'email' => request('email'),
             'id_role' => request('role')['id'],
-            'password' => '1234',
+            'password' => bcrypt('1234'),
         ]);
 
         $judge->save();
