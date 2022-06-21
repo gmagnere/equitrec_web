@@ -1,0 +1,2162 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.3
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2022-06-21 09:49:34
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+DROP DATABASE equidb;
+--
+-- TOC entry 3579 (class 1262 OID 16394)
+-- Name: equidb; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE equidb WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'French_France.1252';
+
+
+ALTER DATABASE equidb OWNER TO postgres;
+
+\connect equidb
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 252 (class 1259 OID 19863)
+-- Name: championship_has_trials; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.championship_has_trials (
+    id bigint NOT NULL,
+    id_trial integer NOT NULL,
+    id_championship integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.championship_has_trials OWNER TO postgres;
+
+--
+-- TOC entry 251 (class 1259 OID 19862)
+-- Name: championship_has_trials_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.championship_has_trials_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.championship_has_trials_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3580 (class 0 OID 0)
+-- Dependencies: 251
+-- Name: championship_has_trials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.championship_has_trials_id_seq OWNED BY public.championship_has_trials.id;
+
+
+--
+-- TOC entry 248 (class 1259 OID 19849)
+-- Name: championships; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.championships (
+    id bigint NOT NULL,
+    name character(50) NOT NULL,
+    place character(50) NOT NULL,
+    "dateStart" date NOT NULL,
+    "dateEnd" date NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.championships OWNER TO postgres;
+
+--
+-- TOC entry 247 (class 1259 OID 19848)
+-- Name: championships_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.championships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.championships_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3581 (class 0 OID 0)
+-- Dependencies: 247
+-- Name: championships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.championships_id_seq OWNED BY public.championships.id;
+
+
+--
+-- TOC entry 244 (class 1259 OID 19835)
+-- Name: contracts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.contracts (
+    id bigint NOT NULL,
+    mark double precision NOT NULL,
+    mistake integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.contracts OWNER TO postgres;
+
+--
+-- TOC entry 243 (class 1259 OID 19834)
+-- Name: contracts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.contracts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.contracts_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3582 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: contracts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.contracts_id_seq OWNED BY public.contracts.id;
+
+
+--
+-- TOC entry 250 (class 1259 OID 19856)
+-- Name: evaluates; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.evaluates (
+    id bigint NOT NULL,
+    hours timestamp(0) without time zone NOT NULL,
+    id_obstacle integer NOT NULL,
+    id_user integer NOT NULL,
+    id_rider integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.evaluates OWNER TO postgres;
+
+--
+-- TOC entry 249 (class 1259 OID 19855)
+-- Name: evaluates_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.evaluates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.evaluates_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3583 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: evaluates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.evaluates_id_seq OWNED BY public.evaluates.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 19706)
+-- Name: failed_jobs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.failed_jobs (
+    id bigint NOT NULL,
+    uuid character varying(255) NOT NULL,
+    connection text NOT NULL,
+    queue text NOT NULL,
+    payload text NOT NULL,
+    exception text NOT NULL,
+    failed_at timestamp(0) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE public.failed_jobs OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 19705)
+-- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.failed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.failed_jobs_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3584 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: failed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
+
+
+--
+-- TOC entry 228 (class 1259 OID 19779)
+-- Name: grade_has_levels; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.grade_has_levels (
+    id bigint NOT NULL,
+    id_grade integer NOT NULL,
+    id_tech_level integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.grade_has_levels OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 19778)
+-- Name: grade_has_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.grade_has_levels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.grade_has_levels_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3585 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: grade_has_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.grade_has_levels_id_seq OWNED BY public.grade_has_levels.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 19772)
+-- Name: grades; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.grades (
+    id bigint NOT NULL,
+    "libelleGrade" character(50) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.grades OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 19771)
+-- Name: grades_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.grades_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.grades_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3586 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: grades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.grades_id_seq OWNED BY public.grades.id;
+
+
+--
+-- TOC entry 234 (class 1259 OID 19800)
+-- Name: has_tech_levels; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.has_tech_levels (
+    id bigint NOT NULL,
+    id_tech_level integer NOT NULL,
+    id_obstacle integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.has_tech_levels OWNER TO postgres;
+
+--
+-- TOC entry 233 (class 1259 OID 19799)
+-- Name: has_tech_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.has_tech_levels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.has_tech_levels_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3587 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: has_tech_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.has_tech_levels_id_seq OWNED BY public.has_tech_levels.id;
+
+
+--
+-- TOC entry 246 (class 1259 OID 19842)
+-- Name: horses; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.horses (
+    id bigint NOT NULL,
+    name character(50) NOT NULL,
+    id_rider integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.horses OWNER TO postgres;
+
+--
+-- TOC entry 245 (class 1259 OID 19841)
+-- Name: horses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.horses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.horses_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3588 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: horses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.horses_id_seq OWNED BY public.horses.id;
+
+
+--
+-- TOC entry 210 (class 1259 OID 19682)
+-- Name: migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.migrations (
+    id integer NOT NULL,
+    migration character varying(255) NOT NULL,
+    batch integer NOT NULL
+);
+
+
+ALTER TABLE public.migrations OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 19681)
+-- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.migrations_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3589 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
+
+
+--
+-- TOC entry 230 (class 1259 OID 19786)
+-- Name: obstacles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.obstacles (
+    id bigint NOT NULL,
+    "libelleObstacle" character(50) NOT NULL,
+    "noteMax" integer NOT NULL,
+    id_trial integer,
+    id_pace integer,
+    id_contract integer,
+    id_penality integer,
+    id_style integer,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.obstacles OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 19785)
+-- Name: obstacles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.obstacles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.obstacles_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3590 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: obstacles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.obstacles_id_seq OWNED BY public.obstacles.id;
+
+
+--
+-- TOC entry 240 (class 1259 OID 19821)
+-- Name: paces; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.paces (
+    id bigint NOT NULL,
+    mark double precision NOT NULL,
+    "libellePace" character(50) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.paces OWNER TO postgres;
+
+--
+-- TOC entry 239 (class 1259 OID 19820)
+-- Name: paces_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.paces_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.paces_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3591 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: paces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.paces_id_seq OWNED BY public.paces.id;
+
+
+--
+-- TOC entry 213 (class 1259 OID 19699)
+-- Name: password_resets; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.password_resets (
+    email character varying(255) NOT NULL,
+    token character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.password_resets OWNER TO postgres;
+
+--
+-- TOC entry 242 (class 1259 OID 19828)
+-- Name: penalities; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.penalities (
+    id bigint NOT NULL,
+    penalty double precision NOT NULL,
+    "libellePenalty" character(50) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.penalities OWNER TO postgres;
+
+--
+-- TOC entry 241 (class 1259 OID 19827)
+-- Name: penalities_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.penalities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.penalities_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3592 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: penalities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.penalities_id_seq OWNED BY public.penalities.id;
+
+
+--
+-- TOC entry 217 (class 1259 OID 19718)
+-- Name: personal_access_tokens; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.personal_access_tokens (
+    id bigint NOT NULL,
+    tokenable_type character varying(255) NOT NULL,
+    tokenable_id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    token character varying(64) NOT NULL,
+    abilities text,
+    last_used_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.personal_access_tokens OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 19717)
+-- Name: personal_access_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.personal_access_tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.personal_access_tokens_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3593 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: personal_access_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.personal_access_tokens_id_seq OWNED BY public.personal_access_tokens.id;
+
+
+--
+-- TOC entry 236 (class 1259 OID 19807)
+-- Name: riders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.riders (
+    id bigint NOT NULL,
+    name character(50) NOT NULL,
+    surname character(50) NOT NULL,
+    bib_number integer NOT NULL,
+    id_championship integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.riders OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 19806)
+-- Name: riders_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.riders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.riders_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3594 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: riders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.riders_id_seq OWNED BY public.riders.id;
+
+
+--
+-- TOC entry 232 (class 1259 OID 19793)
+-- Name: roles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.roles (
+    id bigint NOT NULL,
+    "libelleRole" character(50) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.roles OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 19792)
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.roles_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3595 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 19762)
+-- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sessions (
+    id character varying(255) NOT NULL,
+    user_id bigint,
+    ip_address character varying(45),
+    user_agent text,
+    payload text NOT NULL,
+    last_activity integer NOT NULL
+);
+
+
+ALTER TABLE public.sessions OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 19814)
+-- Name: styles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.styles (
+    id bigint NOT NULL,
+    mark double precision NOT NULL,
+    "libelleAppreciation" character(50) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.styles OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 19813)
+-- Name: styles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.styles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.styles_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3596 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: styles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.styles_id_seq OWNED BY public.styles.id;
+
+
+--
+-- TOC entry 223 (class 1259 OID 19747)
+-- Name: team_invitations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.team_invitations (
+    id bigint NOT NULL,
+    team_id bigint NOT NULL,
+    email character varying(255) NOT NULL,
+    role character varying(255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.team_invitations OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 19746)
+-- Name: team_invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.team_invitations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.team_invitations_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3597 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: team_invitations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.team_invitations_id_seq OWNED BY public.team_invitations.id;
+
+
+--
+-- TOC entry 221 (class 1259 OID 19738)
+-- Name: team_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.team_user (
+    id bigint NOT NULL,
+    team_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    role character varying(255),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.team_user OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 19737)
+-- Name: team_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.team_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.team_user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3598 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: team_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.team_user_id_seq OWNED BY public.team_user.id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 19730)
+-- Name: teams; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.teams (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    personal_team boolean NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.teams OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 19729)
+-- Name: teams_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.teams_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.teams_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3599 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.teams_id_seq OWNED BY public.teams.id;
+
+
+--
+-- TOC entry 256 (class 1259 OID 19877)
+-- Name: tech_levels; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tech_levels (
+    id bigint NOT NULL,
+    "libelleTechLevel" character(50) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.tech_levels OWNER TO postgres;
+
+--
+-- TOC entry 255 (class 1259 OID 19876)
+-- Name: tech_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tech_levels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tech_levels_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3600 (class 0 OID 0)
+-- Dependencies: 255
+-- Name: tech_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tech_levels_id_seq OWNED BY public.tech_levels.id;
+
+
+--
+-- TOC entry 254 (class 1259 OID 19870)
+-- Name: trials; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.trials (
+    id bigint NOT NULL,
+    "libelleTrial" character(50) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.trials OWNER TO postgres;
+
+--
+-- TOC entry 253 (class 1259 OID 19869)
+-- Name: trials_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.trials_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.trials_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3601 (class 0 OID 0)
+-- Dependencies: 253
+-- Name: trials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.trials_id_seq OWNED BY public.trials.id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 19689)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    email_verified_at timestamp(0) without time zone,
+    password character varying(255) NOT NULL,
+    remember_token character varying(100),
+    current_team_id bigint,
+    profile_photo_path character varying(2048),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    two_factor_secret text,
+    two_factor_recovery_codes text,
+    two_factor_confirmed_at timestamp(0) without time zone,
+    id_role integer
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 19688)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3602 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 3303 (class 2604 OID 19866)
+-- Name: championship_has_trials id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.championship_has_trials ALTER COLUMN id SET DEFAULT nextval('public.championship_has_trials_id_seq'::regclass);
+
+
+--
+-- TOC entry 3301 (class 2604 OID 19852)
+-- Name: championships id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.championships ALTER COLUMN id SET DEFAULT nextval('public.championships_id_seq'::regclass);
+
+
+--
+-- TOC entry 3299 (class 2604 OID 19838)
+-- Name: contracts id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts ALTER COLUMN id SET DEFAULT nextval('public.contracts_id_seq'::regclass);
+
+
+--
+-- TOC entry 3302 (class 2604 OID 19859)
+-- Name: evaluates id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.evaluates ALTER COLUMN id SET DEFAULT nextval('public.evaluates_id_seq'::regclass);
+
+
+--
+-- TOC entry 3284 (class 2604 OID 19709)
+-- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.failed_jobs_id_seq'::regclass);
+
+
+--
+-- TOC entry 3291 (class 2604 OID 19782)
+-- Name: grade_has_levels id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grade_has_levels ALTER COLUMN id SET DEFAULT nextval('public.grade_has_levels_id_seq'::regclass);
+
+
+--
+-- TOC entry 3290 (class 2604 OID 19775)
+-- Name: grades id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grades ALTER COLUMN id SET DEFAULT nextval('public.grades_id_seq'::regclass);
+
+
+--
+-- TOC entry 3294 (class 2604 OID 19803)
+-- Name: has_tech_levels id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.has_tech_levels ALTER COLUMN id SET DEFAULT nextval('public.has_tech_levels_id_seq'::regclass);
+
+
+--
+-- TOC entry 3300 (class 2604 OID 19845)
+-- Name: horses id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.horses ALTER COLUMN id SET DEFAULT nextval('public.horses_id_seq'::regclass);
+
+
+--
+-- TOC entry 3282 (class 2604 OID 19685)
+-- Name: migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
+
+
+--
+-- TOC entry 3292 (class 2604 OID 19789)
+-- Name: obstacles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.obstacles ALTER COLUMN id SET DEFAULT nextval('public.obstacles_id_seq'::regclass);
+
+
+--
+-- TOC entry 3297 (class 2604 OID 19824)
+-- Name: paces id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.paces ALTER COLUMN id SET DEFAULT nextval('public.paces_id_seq'::regclass);
+
+
+--
+-- TOC entry 3298 (class 2604 OID 19831)
+-- Name: penalities id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.penalities ALTER COLUMN id SET DEFAULT nextval('public.penalities_id_seq'::regclass);
+
+
+--
+-- TOC entry 3286 (class 2604 OID 19721)
+-- Name: personal_access_tokens id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personal_access_tokens ALTER COLUMN id SET DEFAULT nextval('public.personal_access_tokens_id_seq'::regclass);
+
+
+--
+-- TOC entry 3295 (class 2604 OID 19810)
+-- Name: riders id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.riders ALTER COLUMN id SET DEFAULT nextval('public.riders_id_seq'::regclass);
+
+
+--
+-- TOC entry 3293 (class 2604 OID 19796)
+-- Name: roles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
+
+
+--
+-- TOC entry 3296 (class 2604 OID 19817)
+-- Name: styles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.styles ALTER COLUMN id SET DEFAULT nextval('public.styles_id_seq'::regclass);
+
+
+--
+-- TOC entry 3289 (class 2604 OID 19750)
+-- Name: team_invitations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.team_invitations ALTER COLUMN id SET DEFAULT nextval('public.team_invitations_id_seq'::regclass);
+
+
+--
+-- TOC entry 3288 (class 2604 OID 19741)
+-- Name: team_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.team_user ALTER COLUMN id SET DEFAULT nextval('public.team_user_id_seq'::regclass);
+
+
+--
+-- TOC entry 3287 (class 2604 OID 19733)
+-- Name: teams id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams ALTER COLUMN id SET DEFAULT nextval('public.teams_id_seq'::regclass);
+
+
+--
+-- TOC entry 3305 (class 2604 OID 19880)
+-- Name: tech_levels id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tech_levels ALTER COLUMN id SET DEFAULT nextval('public.tech_levels_id_seq'::regclass);
+
+
+--
+-- TOC entry 3304 (class 2604 OID 19873)
+-- Name: trials id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trials ALTER COLUMN id SET DEFAULT nextval('public.trials_id_seq'::regclass);
+
+
+--
+-- TOC entry 3283 (class 2604 OID 19692)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 3569 (class 0 OID 19863)
+-- Dependencies: 252
+-- Data for Name: championship_has_trials; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3565 (class 0 OID 19849)
+-- Dependencies: 248
+-- Data for Name: championships; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.championships (id, name, place, "dateStart", "dateEnd", created_at, updated_at) VALUES (6, 'Competiton equestre Lyon                          ', 'Lyon                                              ', '2022-04-05', '2016-08-04', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+
+
+--
+-- TOC entry 3561 (class 0 OID 19835)
+-- Dependencies: 244
+-- Data for Name: contracts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.contracts (id, mark, mistake, created_at, updated_at) VALUES (5, 7, 1, '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.contracts (id, mark, mistake, created_at, updated_at) VALUES (6, 4, 0, '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.contracts (id, mark, mistake, created_at, updated_at) VALUES (7, 6, 2, '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.contracts (id, mark, mistake, created_at, updated_at) VALUES (8, 5, 3, '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+
+
+--
+-- TOC entry 3567 (class 0 OID 19856)
+-- Dependencies: 250
+-- Data for Name: evaluates; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3532 (class 0 OID 19706)
+-- Dependencies: 215
+-- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3545 (class 0 OID 19779)
+-- Dependencies: 228
+-- Data for Name: grade_has_levels; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (5, 5, 7, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (6, 5, 5, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (12, 6, 5, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (13, 7, 5, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (14, 8, 5, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (15, 6, 7, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (16, 7, 7, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (17, 8, 7, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (7, 5, 6, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (18, 6, 6, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (19, 7, 6, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+INSERT INTO public.grade_has_levels (id, id_grade, id_tech_level, created_at, updated_at) VALUES (20, 8, 6, '2022-06-15 17:31:17', '2022-06-15 17:31:17');
+
+
+--
+-- TOC entry 3543 (class 0 OID 19772)
+-- Dependencies: 226
+-- Data for Name: grades; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.grades (id, "libelleGrade", created_at, updated_at) VALUES (5, '1                                                 ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.grades (id, "libelleGrade", created_at, updated_at) VALUES (7, '3                                                 ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.grades (id, "libelleGrade", created_at, updated_at) VALUES (6, '2                                                 ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.grades (id, "libelleGrade", created_at, updated_at) VALUES (8, 'Elite                                             ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+
+
+--
+-- TOC entry 3551 (class 0 OID 19800)
+-- Dependencies: 234
+-- Data for Name: has_tech_levels; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3563 (class 0 OID 19842)
+-- Dependencies: 246
+-- Data for Name: horses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3527 (class 0 OID 19682)
+-- Dependencies: 210
+-- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.migrations (id, migration, batch) VALUES (1, '2014_10_12_000000_create_users_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (2, '2014_10_12_100000_create_password_resets_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (3, '2014_10_12_200000_add_two_factor_columns_to_users_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (4, '2019_08_19_000000_create_failed_jobs_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (5, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (6, '2020_05_21_100000_create_teams_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (7, '2020_05_21_200000_create_team_user_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (8, '2020_05_21_300000_create_team_invitations_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (9, '2022_05_30_135504_create_sessions_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (10, '2022_06_08_080208_create_grades_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (11, '2022_06_08_080541_create_grade_has_levels_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (12, '2022_06_08_092343_create_obstacles_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (13, '2022_06_08_092403_create_roles_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (14, '2022_06_08_092459_create_has_tech_levels_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (15, '2022_06_08_092558_create_riders_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (16, '2022_06_08_092620_create_styles_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (17, '2022_06_08_092803_create_paces_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (18, '2022_06_08_092841_create_penalities_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (19, '2022_06_08_092859_create_contracts_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (20, '2022_06_08_092912_create_horses_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (21, '2022_06_08_094216_create_championships_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (22, '2022_06_08_094311_create_evaluates_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (23, '2022_06_08_094352_create_championship_has_trials_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (24, '2022_06_08_094444_create_trials_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (25, '2022_06_08_094611_create_tech_levels_table', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (26, '2022_06_13_114741_fk_all_tables', 1);
+INSERT INTO public.migrations (id, migration, batch) VALUES (27, '2022_06_15_162514_add_id_role_to__user', 1);
+
+
+--
+-- TOC entry 3547 (class 0 OID 19786)
+-- Dependencies: 230
+-- Data for Name: obstacles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.obstacles (id, "libelleObstacle", "noteMax", id_trial, id_pace, id_contract, id_penality, id_style, created_at, updated_at) VALUES (24, 'Barriere                                          ', 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+
+--
+-- TOC entry 3557 (class 0 OID 19821)
+-- Dependencies: 240
+-- Data for Name: paces; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.paces (id, mark, "libellePace", created_at, updated_at) VALUES (6, 3, 'pace3                                             ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.paces (id, mark, "libellePace", created_at, updated_at) VALUES (5, 3, 'pace2                                             ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.paces (id, mark, "libellePace", created_at, updated_at) VALUES (4, 2, 'pace1                                             ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+
+
+--
+-- TOC entry 3530 (class 0 OID 19699)
+-- Dependencies: 213
+-- Data for Name: password_resets; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3559 (class 0 OID 19828)
+-- Dependencies: 242
+-- Data for Name: penalities; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.penalities (id, penalty, "libellePenalty", created_at, updated_at) VALUES (11, -10, 'penalty1                                          ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.penalities (id, penalty, "libellePenalty", created_at, updated_at) VALUES (12, -10, 'penalty2                                          ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.penalities (id, penalty, "libellePenalty", created_at, updated_at) VALUES (14, -10, 'penalty4                                          ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.penalities (id, penalty, "libellePenalty", created_at, updated_at) VALUES (15, -10, 'penalty5                                          ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.penalities (id, penalty, "libellePenalty", created_at, updated_at) VALUES (13, -10, 'penalty3                                          ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+
+
+--
+-- TOC entry 3534 (class 0 OID 19718)
+-- Dependencies: 217
+-- Data for Name: personal_access_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3553 (class 0 OID 19807)
+-- Dependencies: 236
+-- Data for Name: riders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.riders (id, name, surname, bib_number, id_championship, created_at, updated_at) VALUES (31, 'Mauchamp                                          ', 'Jule                                              ', 8, 6, '2022-06-20 14:42:58', '2022-06-20 14:42:58');
+
+
+--
+-- TOC entry 3549 (class 0 OID 19793)
+-- Dependencies: 232
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.roles (id, "libelleRole", created_at, updated_at) VALUES (5, 'Juge                                              ', NULL, NULL);
+INSERT INTO public.roles (id, "libelleRole", created_at, updated_at) VALUES (6, 'Admin                                             ', NULL, NULL);
+
+
+--
+-- TOC entry 3541 (class 0 OID 19762)
+-- Dependencies: 224
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.sessions (id, user_id, ip_address, user_agent, payload, last_activity) VALUES ('ujVxsZp3N5KE5A66NFaVfARNjHMgDETjGmXdDvLC', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoieWJjSEdKS3RMcmJqZmZzbklybUJGOXNjaUZ4U3BVVElDbnUyVU4wQiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=', 1655797392);
+
+
+--
+-- TOC entry 3555 (class 0 OID 19814)
+-- Dependencies: 238
+-- Data for Name: styles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.styles (id, mark, "libelleAppreciation", created_at, updated_at) VALUES (7, 2, 'style3                                            ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.styles (id, mark, "libelleAppreciation", created_at, updated_at) VALUES (5, 3, 'style1                                            ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.styles (id, mark, "libelleAppreciation", created_at, updated_at) VALUES (6, 0, 'style2                                            ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.styles (id, mark, "libelleAppreciation", created_at, updated_at) VALUES (8, 1, 'style4                                            ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+
+
+--
+-- TOC entry 3540 (class 0 OID 19747)
+-- Dependencies: 223
+-- Data for Name: team_invitations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3538 (class 0 OID 19738)
+-- Dependencies: 221
+-- Data for Name: team_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3536 (class 0 OID 19730)
+-- Dependencies: 219
+-- Data for Name: teams; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.teams (id, user_id, name, personal_team, created_at, updated_at) VALUES (1, 21, 'Gaël''s Team', true, '2022-06-15 18:14:38', '2022-06-15 18:14:38');
+
+
+--
+-- TOC entry 3573 (class 0 OID 19877)
+-- Dependencies: 256
+-- Data for Name: tech_levels; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.tech_levels (id, "libelleTechLevel", created_at, updated_at) VALUES (5, 'Club                                              ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.tech_levels (id, "libelleTechLevel", created_at, updated_at) VALUES (6, 'Amateur                                           ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+INSERT INTO public.tech_levels (id, "libelleTechLevel", created_at, updated_at) VALUES (7, 'Club poney                                        ', '2022-06-15 17:31:16', '2022-06-15 17:31:16');
+
+
+--
+-- TOC entry 3571 (class 0 OID 19870)
+-- Dependencies: 254
+-- Data for Name: trials; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.trials (id, "libelleTrial", created_at, updated_at) VALUES (7, 'PTV                                               ', NULL, NULL);
+
+
+--
+-- TOC entry 3529 (class 0 OID 19689)
+-- Dependencies: 212
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (12, 'Mrs. Alison Wisoky IV', 'carlotta.legros@example.com', '2022-06-15 17:31:17', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'I80McSpQpk', NULL, NULL, '2022-06-15 17:31:17', '2022-06-15 17:31:17', NULL, NULL, NULL, NULL);
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (14, 'Quinton Stracke', 'considine.joan@example.net', '2022-06-15 17:31:17', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '7eLEusMc8d', NULL, NULL, '2022-06-15 17:31:17', '2022-06-15 17:31:17', NULL, NULL, NULL, NULL);
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (16, 'Gabriel Lynch', 'zbaumbach@example.org', '2022-06-15 17:31:17', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'lPsXWIsZI5', NULL, NULL, '2022-06-15 17:31:17', '2022-06-15 17:31:17', NULL, NULL, NULL, NULL);
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (18, 'Christophe Bode', 'bartoletti.nigel@example.net', '2022-06-15 17:31:17', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Pq8aEMCKo3', NULL, NULL, '2022-06-15 17:31:17', '2022-06-15 17:31:17', NULL, NULL, NULL, NULL);
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (20, 'Jamie Emard Sr.', 'ziemann.kiera@example.org', '2022-06-15 17:31:17', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3ip6F5vALS', NULL, NULL, '2022-06-15 17:31:17', '2022-06-15 17:31:17', NULL, NULL, NULL, NULL);
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (17, 'Damian Christiansen', 'jacques01@example.net', '2022-06-15 17:31:17', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'PlseGAuKja', NULL, NULL, '2022-06-15 17:31:17', '2022-06-15 17:31:17', NULL, NULL, NULL, 5);
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (11, 'Lawrence Dickinson', 'kole69@example.net', '2022-06-15 17:31:17', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'bxPGiD2ksQ', NULL, NULL, '2022-06-15 17:31:17', '2022-06-15 17:31:17', NULL, NULL, NULL, 5);
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (24, 'Jule Mauchamp', 'j.mauchamp@gmail.com', NULL, '$2y$10$JMoAdvHtboesNm9e/2cgAOPPW4fXXuyt60exjWXagXVqCgZXIJmse', NULL, NULL, NULL, '2022-06-20 11:42:44', '2022-06-20 11:42:44', NULL, NULL, NULL, 5);
+INSERT INTO public.users (id, name, email, email_verified_at, password, remember_token, current_team_id, profile_photo_path, created_at, updated_at, two_factor_secret, two_factor_recovery_codes, two_factor_confirmed_at, id_role) VALUES (21, 'Gaël Magnere', 'gmagnere03@gmail.com', NULL, '$2y$10$ryQqiZLh9LTexqswStfZs.lZr1lMpCnWGsu8bl/McVDnqtSlnYzje', 'I76YIOINFi88lCAUFnok84yC3JA6QAGngoPxHgyxD6V0VFLVCWbg1wXXiPyY', 1, NULL, '2022-06-15 18:14:38', '2022-06-15 18:14:38', NULL, NULL, NULL, 5);
+
+
+--
+-- TOC entry 3603 (class 0 OID 0)
+-- Dependencies: 251
+-- Name: championship_has_trials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.championship_has_trials_id_seq', 11, true);
+
+
+--
+-- TOC entry 3604 (class 0 OID 0)
+-- Dependencies: 247
+-- Name: championships_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.championships_id_seq', 15, true);
+
+
+--
+-- TOC entry 3605 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: contracts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.contracts_id_seq', 8, true);
+
+
+--
+-- TOC entry 3606 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: evaluates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.evaluates_id_seq', 20, true);
+
+
+--
+-- TOC entry 3607 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
+
+
+--
+-- TOC entry 3608 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: grade_has_levels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.grade_has_levels_id_seq', 20, true);
+
+
+--
+-- TOC entry 3609 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: grades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.grades_id_seq', 8, true);
+
+
+--
+-- TOC entry 3610 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: has_tech_levels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.has_tech_levels_id_seq', 20, true);
+
+
+--
+-- TOC entry 3611 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: horses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.horses_id_seq', 20, true);
+
+
+--
+-- TOC entry 3612 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.migrations_id_seq', 27, true);
+
+
+--
+-- TOC entry 3613 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: obstacles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.obstacles_id_seq', 24, true);
+
+
+--
+-- TOC entry 3614 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: paces_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.paces_id_seq', 6, true);
+
+
+--
+-- TOC entry 3615 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: penalities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.penalities_id_seq', 20, true);
+
+
+--
+-- TOC entry 3616 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: personal_access_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.personal_access_tokens_id_seq', 1, false);
+
+
+--
+-- TOC entry 3617 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: riders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.riders_id_seq', 31, true);
+
+
+--
+-- TOC entry 3618 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.roles_id_seq', 6, true);
+
+
+--
+-- TOC entry 3619 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: styles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.styles_id_seq', 8, true);
+
+
+--
+-- TOC entry 3620 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: team_invitations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.team_invitations_id_seq', 1, false);
+
+
+--
+-- TOC entry 3621 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: team_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.team_user_id_seq', 1, false);
+
+
+--
+-- TOC entry 3622 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: teams_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.teams_id_seq', 1, true);
+
+
+--
+-- TOC entry 3623 (class 0 OID 0)
+-- Dependencies: 255
+-- Name: tech_levels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tech_levels_id_seq', 8, true);
+
+
+--
+-- TOC entry 3624 (class 0 OID 0)
+-- Dependencies: 253
+-- Name: trials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.trials_id_seq', 7, true);
+
+
+--
+-- TOC entry 3625 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 24, true);
+
+
+--
+-- TOC entry 3364 (class 2606 OID 19868)
+-- Name: championship_has_trials championship_has_trials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.championship_has_trials
+    ADD CONSTRAINT championship_has_trials_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3360 (class 2606 OID 19854)
+-- Name: championships championships_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.championships
+    ADD CONSTRAINT championships_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3356 (class 2606 OID 19840)
+-- Name: contracts contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT contracts_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3362 (class 2606 OID 19861)
+-- Name: evaluates evaluates_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.evaluates
+    ADD CONSTRAINT evaluates_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3314 (class 2606 OID 19714)
+-- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3316 (class 2606 OID 19716)
+-- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
+
+
+--
+-- TOC entry 3340 (class 2606 OID 19784)
+-- Name: grade_has_levels grade_has_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grade_has_levels
+    ADD CONSTRAINT grade_has_levels_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3338 (class 2606 OID 19777)
+-- Name: grades grades_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grades
+    ADD CONSTRAINT grades_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3346 (class 2606 OID 19805)
+-- Name: has_tech_levels has_tech_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.has_tech_levels
+    ADD CONSTRAINT has_tech_levels_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3358 (class 2606 OID 19847)
+-- Name: horses horses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.horses
+    ADD CONSTRAINT horses_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3307 (class 2606 OID 19687)
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations
+    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3342 (class 2606 OID 19791)
+-- Name: obstacles obstacles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.obstacles
+    ADD CONSTRAINT obstacles_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3352 (class 2606 OID 19826)
+-- Name: paces paces_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.paces
+    ADD CONSTRAINT paces_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3354 (class 2606 OID 19833)
+-- Name: penalities penalities_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.penalities
+    ADD CONSTRAINT penalities_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3318 (class 2606 OID 19725)
+-- Name: personal_access_tokens personal_access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personal_access_tokens
+    ADD CONSTRAINT personal_access_tokens_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3320 (class 2606 OID 19728)
+-- Name: personal_access_tokens personal_access_tokens_token_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personal_access_tokens
+    ADD CONSTRAINT personal_access_tokens_token_unique UNIQUE (token);
+
+
+--
+-- TOC entry 3348 (class 2606 OID 19812)
+-- Name: riders riders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.riders
+    ADD CONSTRAINT riders_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3344 (class 2606 OID 19798)
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3335 (class 2606 OID 19768)
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3350 (class 2606 OID 19819)
+-- Name: styles styles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.styles
+    ADD CONSTRAINT styles_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3330 (class 2606 OID 19754)
+-- Name: team_invitations team_invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.team_invitations
+    ADD CONSTRAINT team_invitations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3332 (class 2606 OID 19761)
+-- Name: team_invitations team_invitations_team_id_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.team_invitations
+    ADD CONSTRAINT team_invitations_team_id_email_unique UNIQUE (team_id, email);
+
+
+--
+-- TOC entry 3326 (class 2606 OID 19743)
+-- Name: team_user team_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.team_user
+    ADD CONSTRAINT team_user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3328 (class 2606 OID 19745)
+-- Name: team_user team_user_team_id_user_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.team_user
+    ADD CONSTRAINT team_user_team_id_user_id_unique UNIQUE (team_id, user_id);
+
+
+--
+-- TOC entry 3323 (class 2606 OID 19735)
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3368 (class 2606 OID 19882)
+-- Name: tech_levels tech_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tech_levels
+    ADD CONSTRAINT tech_levels_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3366 (class 2606 OID 19875)
+-- Name: trials trials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trials
+    ADD CONSTRAINT trials_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3309 (class 2606 OID 19698)
+-- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_unique UNIQUE (email);
+
+
+--
+-- TOC entry 3311 (class 2606 OID 19696)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3312 (class 1259 OID 19704)
+-- Name: password_resets_email_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX password_resets_email_index ON public.password_resets USING btree (email);
+
+
+--
+-- TOC entry 3321 (class 1259 OID 19726)
+-- Name: personal_access_tokens_tokenable_type_tokenable_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX personal_access_tokens_tokenable_type_tokenable_id_index ON public.personal_access_tokens USING btree (tokenable_type, tokenable_id);
+
+
+--
+-- TOC entry 3333 (class 1259 OID 19770)
+-- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sessions_last_activity_index ON public.sessions USING btree (last_activity);
+
+
+--
+-- TOC entry 3336 (class 1259 OID 19769)
+-- Name: sessions_user_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sessions_user_id_index ON public.sessions USING btree (user_id);
+
+
+--
+-- TOC entry 3324 (class 1259 OID 19736)
+-- Name: teams_user_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX teams_user_id_index ON public.teams USING btree (user_id);
+
+
+--
+-- TOC entry 3386 (class 2606 OID 19888)
+-- Name: championship_has_trials championship_has_trials_id_championship_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.championship_has_trials
+    ADD CONSTRAINT championship_has_trials_id_championship_foreign FOREIGN KEY (id_championship) REFERENCES public.championships(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3385 (class 2606 OID 19883)
+-- Name: championship_has_trials championship_has_trials_id_trial_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.championship_has_trials
+    ADD CONSTRAINT championship_has_trials_id_trial_foreign FOREIGN KEY (id_trial) REFERENCES public.trials(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3382 (class 2606 OID 19893)
+-- Name: evaluates evaluates_id_obstacle_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.evaluates
+    ADD CONSTRAINT evaluates_id_obstacle_foreign FOREIGN KEY (id_obstacle) REFERENCES public.obstacles(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3384 (class 2606 OID 19903)
+-- Name: evaluates evaluates_id_rider_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.evaluates
+    ADD CONSTRAINT evaluates_id_rider_foreign FOREIGN KEY (id_rider) REFERENCES public.riders(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3383 (class 2606 OID 19898)
+-- Name: evaluates evaluates_id_user_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.evaluates
+    ADD CONSTRAINT evaluates_id_user_foreign FOREIGN KEY (id_user) REFERENCES public.users(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3371 (class 2606 OID 19953)
+-- Name: grade_has_levels grade_has_levels_id_grade_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grade_has_levels
+    ADD CONSTRAINT grade_has_levels_id_grade_foreign FOREIGN KEY (id_grade) REFERENCES public.grades(id);
+
+
+--
+-- TOC entry 3372 (class 2606 OID 19958)
+-- Name: grade_has_levels grade_has_levels_id_tech_level_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grade_has_levels
+    ADD CONSTRAINT grade_has_levels_id_tech_level_foreign FOREIGN KEY (id_tech_level) REFERENCES public.tech_levels(id);
+
+
+--
+-- TOC entry 3379 (class 2606 OID 19923)
+-- Name: has_tech_levels has_tech_levels_id_obstacle_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.has_tech_levels
+    ADD CONSTRAINT has_tech_levels_id_obstacle_foreign FOREIGN KEY (id_obstacle) REFERENCES public.obstacles(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3378 (class 2606 OID 19918)
+-- Name: has_tech_levels has_tech_levels_id_tech_level_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.has_tech_levels
+    ADD CONSTRAINT has_tech_levels_id_tech_level_foreign FOREIGN KEY (id_tech_level) REFERENCES public.tech_levels(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3381 (class 2606 OID 19908)
+-- Name: horses horses_id_rider_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.horses
+    ADD CONSTRAINT horses_id_rider_foreign FOREIGN KEY (id_rider) REFERENCES public.riders(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3375 (class 2606 OID 19938)
+-- Name: obstacles obstacles_id_contract_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.obstacles
+    ADD CONSTRAINT obstacles_id_contract_foreign FOREIGN KEY (id_contract) REFERENCES public.contracts(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3374 (class 2606 OID 19933)
+-- Name: obstacles obstacles_id_pace_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.obstacles
+    ADD CONSTRAINT obstacles_id_pace_foreign FOREIGN KEY (id_pace) REFERENCES public.paces(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3376 (class 2606 OID 19943)
+-- Name: obstacles obstacles_id_penality_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.obstacles
+    ADD CONSTRAINT obstacles_id_penality_foreign FOREIGN KEY (id_penality) REFERENCES public.penalities(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3377 (class 2606 OID 19948)
+-- Name: obstacles obstacles_id_style_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.obstacles
+    ADD CONSTRAINT obstacles_id_style_foreign FOREIGN KEY (id_style) REFERENCES public.styles(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3373 (class 2606 OID 19928)
+-- Name: obstacles obstacles_id_trial_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.obstacles
+    ADD CONSTRAINT obstacles_id_trial_foreign FOREIGN KEY (id_trial) REFERENCES public.trials(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3380 (class 2606 OID 19913)
+-- Name: riders riders_id_championship_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.riders
+    ADD CONSTRAINT riders_id_championship_foreign FOREIGN KEY (id_championship) REFERENCES public.championships(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3370 (class 2606 OID 19755)
+-- Name: team_invitations team_invitations_team_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.team_invitations
+    ADD CONSTRAINT team_invitations_team_id_foreign FOREIGN KEY (team_id) REFERENCES public.teams(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 3369 (class 2606 OID 19963)
+-- Name: users users_id_role_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_id_role_foreign FOREIGN KEY (id_role) REFERENCES public.roles(id);
+
+
+-- Completed on 2022-06-21 09:49:34
+
+--
+-- PostgreSQL database dump complete
+--
+
