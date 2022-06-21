@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChampionShipController;
 use App\Http\Controllers\JudgeController;
+use App\Http\Controllers\QrcodeController;
 use App\Http\Controllers\RiderController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -42,4 +43,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::post('/championship/add', [ChampionShipController::class, 'submit'])->name('championship.add');
     Route::post('/championship/delete', [ChampionShipController::class, 'delete'])->name('championship.delete');
 
+    Route::get('/qrcode', [QrcodeController::class, 'index'])->name('qrcode.index');
+    Route::post('/qrcode/generate', [QrcodeController::class, 'generate'])->name('qrcode.generate');
 });

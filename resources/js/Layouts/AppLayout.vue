@@ -61,6 +61,9 @@ const logout = () => {
                                 <JetNavLink :href="route('championship.index')" :active="route().current('championship*')">
                                     Compétition
                                 </JetNavLink>
+                                <JetNavLink :href="route('qrcode.index')" :active="route().current('qrcode*')">
+                                    QrCode
+                                </JetNavLink>
                             </div>
                         </div>
 
@@ -159,6 +162,9 @@ const logout = () => {
                         </JetResponsiveNavLink>
                         <JetResponsiveNavLink :href="route('championship.index')" :active="route().current('championship*')">
                             Compétition
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink :href="route('qrcode.index')" :active="route().current('qrcode*')">
+                            QrCode
                         </JetResponsiveNavLink>
                     </div>
 

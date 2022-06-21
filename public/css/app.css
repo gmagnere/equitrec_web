@@ -936,9 +936,6 @@ select {
 .prose > :where(:last-child):not(:where([class~="not-prose"] *)) {
   margin-bottom: 0;
 }
-.pointer-events-none {
-  pointer-events: none;
-}
 .fixed {
   position: fixed;
 }
@@ -953,10 +950,6 @@ select {
   right: 0px;
   bottom: 0px;
   left: 0px;
-}
-.inset-y-0 {
-  top: 0px;
-  bottom: 0px;
 }
 .left-0 {
   left: 0px;
@@ -1070,6 +1063,12 @@ select {
 }
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+.ml-5 {
+  margin-left: 1.25rem;
+}
+.ml-20 {
+  margin-left: 5rem;
 }
 .block {
   display: block;
@@ -1579,9 +1578,6 @@ select {
 .pb-8 {
   padding-bottom: 2rem;
 }
-.pl-10 {
-  padding-left: 2.5rem;
-}
 .text-left {
   text-align: left;
 }
@@ -2049,11 +2045,6 @@ select {
     background-color: rgb(31 41 55 / var(--tw-bg-opacity));
   }
 
-  .dark\:bg-gray-700 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
-  }
-
   .dark\:text-white {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -2289,11 +2280,6 @@ select {
 
   .sm\:text-right {
     text-align: right;
-  }
-
-  .sm\:text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
   }
 }
 @media (min-width: 768px) {

@@ -24,7 +24,7 @@
                     </label>
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
                             leading-tight focus:outline-none focus:shadow-outline" id="email" type="text"
-                              v-model="form.email">
+                              v-model="form.place">
                             </textarea>
                 </div>
                 <div class="mb-4">
@@ -32,7 +32,7 @@
                         Epreuve
                     </label>
                 </div>
-                <select v-model="form.trials" id="roles" class=" mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 text-gray-700 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select v-model="form.trial" id="roles" class=" mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 text-gray-700 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected>Selectionner une epreuve</option>
                     <option :value="trial" v-for="(trial, index) in trials" :key="trials.id">
                         {{trial.libelleTrial}}

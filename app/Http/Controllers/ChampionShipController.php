@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Championship;
+use App\Models\ChampionshipHasTrials;
 use App\Models\Trial;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -31,7 +32,15 @@ class ChampionShipController extends Controller
             'dateEnd'=> request('dateEnd'),
         ]);
 
+
         $championship->save();
+        //dd($championship->id);
+        $hasTrial = ChampionshipHasTrials::create([
+            'id_trial' => request('trial')['id'],
+            'id_championship' => $championship->id,
+        ]);
+
+        $hasTrial->save();
 
         return redirect('/championship');
     }
