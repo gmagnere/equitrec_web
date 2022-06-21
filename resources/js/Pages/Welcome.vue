@@ -7,6 +7,8 @@ defineProps({
     laravelVersion: String,
     phpVersion: String,
 });
+
+
 </script>
 
 <template>
@@ -26,15 +28,13 @@ defineProps({
                 <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 underline">
                     Register
                 </Link>
-
-                <div>
-                    <img class="object-none object-center bg-yellow-300 w-24 h-24 ..." :src="'storage/app/public/horse-drawing-silhouette-clip-art-png-favpng-ZqvckDjkEWKxD4y1MDSWXtegb-removebg-preview.png'" alt="horse">
-                </div>
             </template>
+        </div>
+        <div>
+            <img class="object-none object-center w-300 h-300 ..." :src="'../storage/horse-drawing-silhouette-clip-art-png-favpng-ZqvckDjkEWKxD4y1MDSWXtegb-removebg-preview.png'" alt="horse">
         </div>
     </div>
 </template>
-
 <style scoped>
     .bg-gray-100 {
         background-color: #f7fafc;

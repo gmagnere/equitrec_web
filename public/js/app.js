@@ -31269,15 +31269,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    "class": "object-none object-center bg-yellow-300 w-24 h-24 ...",
-    src: 'storage/app/public/horse-drawing-silhouette-clip-art-png-favpng-ZqvckDjkEWKxD4y1MDSWXtegb-removebg-preview.png',
+  , ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64
+  /* STABLE_FRAGMENT */
+  ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "object-none object-center w-300 h-300 ...",
+    src: '../storage/horse-drawing-silhouette-clip-art-png-favpng-ZqvckDjkEWKxD4y1MDSWXtegb-removebg-preview.png',
     alt: "horse"
   }, null, 8
   /* PROPS */
-  , _hoisted_6)])], 64
-  /* STABLE_FRAGMENT */
-  ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 64
+  , _hoisted_6)])])], 64
   /* STABLE_FRAGMENT */
   );
 }
